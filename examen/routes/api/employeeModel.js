@@ -37,25 +37,54 @@ function employeeModel(db){
   lib.getEmployeesByCompany = (company, handler) => {
     // implementar
     // solo mostrar name, email, company
-    return handler(new Error("No Implementado"), null);
+    empColl
+    .find({"company": {"$in": Array.isArray(company)? company: [company]}})
+    .project({"email":1,"company":1,"name":1,"age":1})
+    .toArray(
+        (err, doc)=>{
+          if(err){
+            handler(err, null);
+          }else{
+            handler(null, doc);
+          }
+      }
+    );
   }
 
-  lib.getEmployeesByAgeRange = (ageLowLimit, ageHighLimit, handler) => {
+  /*lib.getEmployeesByAgeRange = (ageLowLimit, ageHighLimit, handler) => {
     //implementar
     // Mostrar todos los documento incluyendo los extremos
     // que esten entre las edades indicadas por los parametros
     // ageLowLimit y ageHighLimit
     // solo mostrar name, age, email
-    return handler(new Error("No Implementado"), null);
-  }
+    empColl
+    .find({"age":{$gte:ageLowLimit}},{"age":{$lte:ageHighLimit}})
+    .project({"email":1,"name":1,"age":1})
+    .toArray(
+        (err, doc)=>{
+          if(err){
+            handler(err, null);
+          }else{
+            handler(null, doc);
+          }
+      }
+    );
+  }*/
 
-  lib.getEmployeesByTag = (tag, handler) => {
+  lib.getEmployeesByTag = (tags, handler) => {
     //implementar
     // obtener todos los documentos que contenga 
     // al menos una vez el tag dentro del arreglo
     // tags
     // mostrar solo name, email, tags
-    return handler(new Error("No Implementado"), null);
+    var queryObject= {"tags": {"$in": Array.isArray(tags)? tags: [tags]}};
+    empColl.find(queryObject).toArray((err, docs) => {
+      if(err){
+        handler(err, null);
+      }else{
+        handler(null, docs);
+      }
+    });
   }
 
   lib.addEmployeeATag = ( tag, id, handler) => {

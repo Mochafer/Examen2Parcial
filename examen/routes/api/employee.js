@@ -38,7 +38,36 @@ function initEmployee(db) {
       return res.status(200).json(Doc);
     } );
   }); 
+ 
+  router.get('/bycompany/:company', (req, res, next)=>{
+    empModel.getEmployeesById(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
   
+  router.get('/byagerange/:min/:max', (req, res, next)=>{
+    empModel.getEmployeesByAgeRange(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
+
+  router.get('/bytag/:tag', (req, res, next)=>{
+    empModel.getEmployeesByTag(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
   return router;
 }
 
