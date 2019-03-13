@@ -17,12 +17,16 @@ function initEmployee(db) {
       POST      /makeolder               age
    */
 
-  router.get('/all', (req, res, next) => {
-    /*
-    empModel.xyz( (err, docs)=>{
-      return res.status(200).json(docs);
-    });
-    */
+  router.get('/all', ( req, res, next ) => {
+      empModel.getEmployees(
+        (err, docs) => {
+          if(err) {
+            console.log(err);
+            return res.status(500).json({error:"Instruccion Fallida"});
+          }
+          return res.status(200).json(docs);
+        }
+        );
   });// all
 
   

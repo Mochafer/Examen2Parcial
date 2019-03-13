@@ -14,6 +14,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, client){
     process.exit(1);
   }
   var db = client.db('examen201901p2');
+  console.log("Conexion Exitosa");
   var app = require('../app')(db);
   var debug = require('debug')('examen:server');
   var http = require('http');
