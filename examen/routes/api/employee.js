@@ -68,6 +68,16 @@ function initEmployee(db) {
       return res.status(200).json(Doc);
     } );
   }); 
+  
+  router.put('/addtag/:id', (req, res, next)=>{
+    empModel.addEmployeeATag(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
   return router;
 }
 

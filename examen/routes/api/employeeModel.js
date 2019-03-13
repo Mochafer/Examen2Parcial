@@ -87,11 +87,19 @@ function employeeModel(db){
     });
   }
 
-  lib.addEmployeeATag = ( tag, id, handler) => {
+  lib.addEmployeeATag = ( tags, id, handler) => {
     //Implementar
     //Se requiere agregar a un documento un nuevo tag
     // $push
-    return handler(new Error("No Implementado"), null);
+    var addtag = Array.isArray(tags)? tags: [tags];
+    var updateObject = { "$set": { "tags": addtag}};
+    empColl.updateOne({"_id":new ObjectID(id)}, updateObject, (err, rsult)=>{
+        if(err){
+          handler(err, null);
+        }else{
+          handler(null, rsult.result);
+        }
+    } );
   }
 
   lib.removeEmployee = (id, handler) => {
