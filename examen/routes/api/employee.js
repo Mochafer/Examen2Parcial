@@ -29,6 +29,15 @@ function initEmployee(db) {
         );
   });// all
 
+  router.get('/byid/:id', (req, res, next)=>{
+    empModel.getEmployeesById(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
   
   return router;
 }

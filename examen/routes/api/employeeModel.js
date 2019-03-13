@@ -20,8 +20,18 @@ function employeeModel(db){
     // implementar
     // Obtener un Documento solo mostrar
     // email, phone, name y age
-
-    return handler(new Error("No Implementado"), null);
+    empColl
+    .find({"_id":new ObjectID(id)})
+    .project({"email":1,"phone":1,"name":1,"age":1})
+    .toArray(
+        (err, doc)=>{
+          if(err){
+            handler(err, null);
+          }else{
+            handler(null, doc);
+          }
+      }
+    );
   }
 
   lib.getEmployeesByCompany = (company, handler) => {
