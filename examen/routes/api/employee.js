@@ -78,6 +78,16 @@ function initEmployee(db) {
       return res.status(200).json(Doc);
     } );
   }); 
+
+  router.delete('/delete/:id', (req, res, next)=>{
+    empModel.removeEmployee(req.params.id, (err, Doc)=>{
+      if(err){
+        console.log(err);
+        return res.status(500).json({"error":"Error al obtener el documento"});
+      }
+      return res.status(200).json(Doc);
+    } );
+  }); 
   return router;
 }
 
